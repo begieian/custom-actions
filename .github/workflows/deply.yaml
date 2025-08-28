@@ -36,6 +36,30 @@ jobs:
           name: fail-test
           path: test.json
   build:
+    needs: test
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        id: step-cache
+        with:
+          path: node_modules
+          key: node-cache-${{ hashFiles('**/package-lock.json') }}
+      - if: steps.step-cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-file
+          path: dist
   deploy:
+    needs: build
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist-file
+          path: dist
+      - run: ls
+      - run: echo "Deploying ..."
