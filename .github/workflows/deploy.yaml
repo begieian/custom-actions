@@ -8,13 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/cache@v4
-        id: step-cache
-        with:
-          path: node_modules
-          key: node-cache-${{ hashFiles('**/package-lock.json') }}
-      - if: steps.step-cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - uses: ./.github/actions/cached-deps
       - run: npm run lint
   test:
     needs: lint
