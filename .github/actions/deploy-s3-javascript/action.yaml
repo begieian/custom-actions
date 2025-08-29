@@ -1,0 +1,5 @@
+name: 'Github action with JavaScript'
+description: 'Deploying static website in AWS S3'
+runs:
+  using: node20
+  main: main.js
