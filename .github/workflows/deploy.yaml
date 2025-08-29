@@ -9,8 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/cached-deps
+        id: cache-deps
         with:
           caching: 'false'
+      - run: echo "Was cached used? ${{ steps.cache-deps.outputs.used-cache }}"
       - run: npm run lint
   test:
     needs: lint
