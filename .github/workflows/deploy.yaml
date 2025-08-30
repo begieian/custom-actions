@@ -48,7 +48,7 @@ jobs:
           name: dist-file
           path: dist
       - run: ls
-      - uses: ./.github/actions/deploy-s3-javascript
+      - uses: ./.github/actions/deploy-s3-docker
         id: deploy-site
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

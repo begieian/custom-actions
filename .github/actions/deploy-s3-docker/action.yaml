@@ -1,0 +1,19 @@
+name: 'Github action with JavaScript'
+description: 'Deploying static website in AWS S3'
+inputs:
+  bucket:
+    description: 'The name of S3 bucket'
+    required: true
+  bucket-region:
+    description: 'The region of S3 bucket'
+    required: false
+    default: 'ap-southeast-1'
+  dist-folder:
+    description: 'The location of the dist folder'
+    required: true
+outputs:
+  website-url:
+    description: 'The URL of the deployed static website.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
